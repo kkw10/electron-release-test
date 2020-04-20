@@ -1,14 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
   const [version, setVersion] = useState(null);
+  const [message, setMessage] = useState('');
 
-  window.electronAPI.request('app_version');
-  window.electronAPI.response('app_version', (v) => {
-    setVersion(v.version);
-  })
+  const appVersionRequest = () => {
+    window.electronAPI.request('app_version');
+    window.electronAPI.response('app_version', (v) => {
+      setVersion(v.version);
+    })
+  };
+
+  const getUpdateMessage = () => {
+    window.electronAPI.response('update_message', (v) => {
+      setMessage(v);
+    });
+  };
+
+  useLayoutEffect(( ) => {
+    appVersionRequest();
+    getUpdateMessage();
+  }, []);
 
   return (
     <div className="App">
@@ -17,14 +31,9 @@ function App() {
         <b>
           version: {version ? (version) : ("x.y.z")}
         </b>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p className="App-link">
+          {message}
+        </p>
       </header>
     </div>
   );

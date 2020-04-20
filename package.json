@@ -4,11 +4,16 @@
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kkw10/electron-release-test.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "electron-is-dev": "^1.2.0",
+    "electron-log": "^4.1.1",
     "electron-updater": "^4.2.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -20,7 +25,9 @@
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
-    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\""
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "build": "npm run react-build && electron-builder build --win --publish never",
+    "release": "npm run react-build && electron-builder build --win --publish always"
   },
   "eslintConfig": {
     "extends": "react-app"
