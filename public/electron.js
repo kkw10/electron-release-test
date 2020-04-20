@@ -29,7 +29,7 @@ function createWindow () {
       enableRemoteModule: true,
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
-    },
+    }
   });
 
   mainWindow.webContents.openDevTools();
@@ -38,11 +38,6 @@ function createWindow () {
     mainWindow.loadURL('http://localhost:3000');
   }
   else {
-    // mainWindow.loadURL(url.format({
-    //   protocol: 'file',
-    //   slashes: true,
-    //   pathname: 'index.html',
-    // }));
     mainWindow.loadFile(path.join(__dirname, '../build/index.html'));
   }
 

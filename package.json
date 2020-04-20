@@ -1,6 +1,6 @@
 {
   "name": "electron-release-test",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
@@ -50,31 +50,5 @@
     "electron": "^8.2.3",
     "electron-builder": "^22.5.1",
     "wait-on": "^4.0.2"
-  },
-  "build": {
-    "appId": "com.example.ElectronReleaseTest",
-    "productName": "Electron Release Test",
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
-    },
-    "directories": {
-      "output": "dist/",
-      "app": "."
-    },
-    "win": {
-      "target": [
-        "zip",
-        "nsis"
-      ],
-      "icon": "build/logo512.png"
-    },
-    "mac": {
-      "target": [
-        "default"
-      ],
-      "icon": "build/logo512.png"
-    },
-    "asarUnpack": "*.node"
   }
 }

@@ -15,11 +15,12 @@ function App() {
 
   const getUpdateMessage = () => {
     window.electronAPI.response('update_message', (v) => {
+      console.log(v);
       setMessage(v);
     });
   };
 
-  useLayoutEffect(( ) => {
+  useLayoutEffect(() => {
     appVersionRequest();
     getUpdateMessage();
   }, []);
