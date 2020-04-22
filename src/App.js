@@ -3,19 +3,19 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const [version, setVersion] = useState(null);
+  const [appInfo, setAppInfo] = useState(null);
   const [message, setMessage] = useState('');
 
   const appVersionRequest = () => {
-    window.electronAPI.request('app_version');
-    window.electronAPI.response('app_version', (v) => {
-      setVersion(v.version);
+    window.electronAPI.request('app_info');
+    window.electronAPI.response('app_info', (v) => {
+      console.log(v);
+      setAppInfo(v);
     })
   };
 
   const getUpdateMessage = () => {
     window.electronAPI.response('update_message', (v) => {
-      console.log(v);
       setMessage(v);
     });
   };
@@ -30,7 +30,13 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <b>
-          version: {version ? (version) : ("x.y.z")}
+          version : {appInfo && appInfo.version ? (appInfo.version) : ("x.y.z")}
+        </b>
+        <b>
+          platform : {appInfo && appInfo.platform ? (appInfo.platform) : ("unknown")}
+        </b>
+        <b>
+          feedURL : {appInfo && appInfo.feedURL ? (appInfo.feedURL) : ("unknown")}
         </b>
         <p className="App-link">
           {message}

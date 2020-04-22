@@ -8,14 +8,14 @@ contextBridge.exposeInMainWorld(
   'electronAPI',
   {
     request: (chanel, data) => {
-      let validChannels = ['app_version', ''];
+      let validChannels = ['app_info', ''];
 
       if (validChannels.includes(chanel)) {
         ipcRenderer.send(chanel, data);
       }
     },
     response: (channel, fn) => {
-      let validChannels = ['app_version', 'update_message'];
+      let validChannels = ['app_info', 'update_message'];
 
       if (validChannels.includes(channel)) {
         console.log(channel);

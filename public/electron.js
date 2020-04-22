@@ -1,16 +1,22 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const { autoUpdater } = require('electron-updater');
+const { app, BrowserWindow, ipcMain, autoUpdater } = require('electron');
+// const { autoUpdater } = require('electron-updater');
+const winston = require('winston');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
 const log = require('electron-log');
 
+winston.log('info', app.getVersion());
+
+const server = 'http://localhost:80';
+const feed = `${server}/update/${process.platform}/${app.getVersion()}`;
+
 /**
  * [ Logging ]
  */
-autoUpdater.logger = log;
-autoUpdater.logger.transports.file.level = 'info';
-log.info('[@@@@@ App starting... @@@@@]');
+// autoUpdater.logger = log;
+// autoUpdater.logger.transports.file.level = 'info';
+// log.info('[@@@@@ App starting... @@@@@]');
 
 let mainWindow;
 
@@ -41,7 +47,10 @@ function createWindow () {
     mainWindow.loadFile(path.join(__dirname, '../build/index.html'));
   }
 
-  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.setFeedURL(feed);
+  autoUpdater.checkForUpdates();
+
+  //  autoUpdater.checkForUpdatesAndNotify();
 
   mainWindow.on('closed', function () {
     mainWindow = null;
@@ -68,8 +77,12 @@ app.on('activate', function () {
 /**
  * [ipcMain.on~]
  */
-ipcMain.on('app_version', (event) => {
-  event.sender.send('app_version', { version: app.getVersion() });
+ipcMain.on('app_info', (event) => {
+  event.sender.send('app_info', { 
+    version: app.getVersion(),
+    platform: process.platform,
+    feedURL: feed,
+  });
 });
 
 /**
@@ -87,6 +100,6 @@ autoUpdater.on('update-not-available', () => {
 autoUpdater.on('error', (err) => {
   sendMessageToWindow(`Error in auto-updater. ${err}`);
 });
-autoUpdater.on('update-downloaded', () => {
-  sendMessageToWindow('Update downloaded');
-});
+// autoUpdater.on('update-downloaded', () => {
+//   sendMessageToWindow('Update downloaded');
+// });

@@ -1,24 +1,22 @@
 {
   "name": "electron-release-test",
-  "version": "0.1.3",
+  "version": "0.1.1",
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kkw10/electron-release-test.git"
-  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "electron-builder-squirrel-windows": "^22.5.1",
     "electron-is-dev": "^1.2.0",
     "electron-log": "^4.1.1",
     "electron-updater": "^4.2.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "winston": "^3.2.1"
   },
   "scripts": {
     "react-start": "react-scripts start",
