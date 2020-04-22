@@ -1,5 +1,5 @@
+if(require('electron-squirrel-startup')) return;
 const { app, BrowserWindow, ipcMain, autoUpdater } = require('electron');
-// const { autoUpdater } = require('electron-updater');
 const winston = require('winston');
 const isDev = require('electron-is-dev');
 const path = require('path');
@@ -50,8 +50,6 @@ function createWindow () {
   autoUpdater.setFeedURL(feed);
   autoUpdater.checkForUpdates();
 
-  //  autoUpdater.checkForUpdatesAndNotify();
-
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
@@ -100,6 +98,6 @@ autoUpdater.on('update-not-available', () => {
 autoUpdater.on('error', (err) => {
   sendMessageToWindow(`Error in auto-updater. ${err}`);
 });
-// autoUpdater.on('update-downloaded', () => {
-//   sendMessageToWindow('Update downloaded');
-// });
+autoUpdater.on('update-downloaded', () => {
+  sendMessageToWindow('Update downloaded');
+});

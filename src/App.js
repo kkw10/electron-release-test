@@ -9,7 +9,6 @@ function App() {
   const appVersionRequest = () => {
     window.electronAPI.request('app_info');
     window.electronAPI.response('app_info', (v) => {
-      console.log(v);
       setAppInfo(v);
     })
   };
